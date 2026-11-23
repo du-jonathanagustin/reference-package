@@ -43,5 +43,5 @@ components:
     source: registry
 values:
   files:
-  - values.yaml
-  schema: values.schema.json
+  - zarf-values.yaml
+  schema: zarf-values.schema.json

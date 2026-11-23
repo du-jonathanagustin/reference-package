@@ -1,6 +1,6 @@
 # Configuration
 
-The Reference Package is configured using the [application's Helm chart](https://github.com/uds-packages/reference-package/tree/main/.github/container-and-chart/helm/chart), alongside the `uds-reference-package-config` UDS config chart. Root [Zarf values](../values.yaml) provide defaults for both charts. The test bundle supplies additional values through [`values_files`](../bundle/bundle.uds.hcl).
+The Reference Package is configured using the [application's Helm chart](https://github.com/uds-packages/reference-package/tree/main/.github/container-and-chart/helm/chart), alongside the `uds-reference-package-config` UDS config chart. Root [Zarf values](../zarf-values.yaml) provide defaults for both charts. The test bundle supplies additional values through [`values_files`](../bundle/bundle.uds.hcl).
 
 ## Table of Contents
 
@@ -74,7 +74,7 @@ Keep boolean templates unquoted so their rendered YAML values remain booleans. T
 
 The [UDS `Package` Custom Resource](../chart/templates/uds-package.yaml) configures the `uds-trust-bundle` ConfigMap and enables pod reloads for the application when its certificate data changes.
 
-The application chart exposes generic `extraVolumes`, `extraVolumeMounts`, and `extraEnv` values with empty defaults. The UDS package's [values](../values.yaml) use these extensions to mount the ConfigMap read-only at `/etc/uds/certs` and set `SSL_CERT_DIR` to `/etc/ssl/certs:/etc/uds/certs`.
+The application chart exposes generic `extraVolumes`, `extraVolumeMounts`, and `extraEnv` values with empty defaults. The UDS package's [values](../zarf-values.yaml) use these extensions to mount the ConfigMap read-only at `/etc/uds/certs` and set `SSL_CERT_DIR` to `/etc/ssl/certs:/etc/uds/certs`.
 
 It is important to note that TLS and certificate validation should be setup correctly for external services that need them (i.e. set `postgres.connectionOptions` to `?sslmode=verify-full` and `objectStorage.useSSL` to `true`).  See Manage trust bundles (https://docs.defenseunicorns.com/core/how-to-guides/networking/manage-trust-bundles/) for additional UDS Core Trust Bundle configuration guidance.
 
