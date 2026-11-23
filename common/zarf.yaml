@@ -1,27 +1,27 @@
 # Copyright 2024-2026 Defense Unicorns
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
 
-# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
-kind: ZarfPackageConfig
+# yaml-language-server: $schema=https://raw.githubusercontent.com/zarf-dev/zarf/e62a47c31c2a10854bd3f9d64f31345dffa26c68/src/pkg/schema/zarf-v1beta1-component-schema.json
+apiVersion: zarf.dev/v1beta1
+kind: ZarfComponentConfig
 metadata:
-  name: reference-package-common
-  description: "UDS Reference Package Common Package"
-
-components:
+  name: reference-package
+  description: UDS Reference Package common charts
+component:
+  charts:
+  - name: uds-reference-package-config
+    local:
+      path: ../chart
+    namespace: reference-package
+    values:
+    - sourcePath: .
+      targetPath: .
   - name: reference-package
-    required: true
-    charts:
-      - name: uds-reference-package-config
-        namespace: reference-package
-        version: 0.2.0
-        localPath: ../chart
-        values:
-          - sourcePath: "."
-            targetPath: "."
-      - name: reference-package
-        namespace: reference-package
-        version: 0.3.0
-        url: oci://ghcr.io/uds-packages/reference-package/helm/reference-package
-        values:
-          - sourcePath: "."
-            targetPath: "."
+    oci:
+      url: oci://ghcr.io/uds-packages/reference-package/helm/reference-package
+      ref:
+        tag: 0.3.0
+    namespace: reference-package
+    values:
+    - sourcePath: .
+      targetPath: .

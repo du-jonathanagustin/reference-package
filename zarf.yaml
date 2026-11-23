@@ -1,43 +1,47 @@
 # Copyright 2024-2026 Defense Unicorns
 # SPDX-License-Identifier: AGPL-3.0-or-later OR LicenseRef-Defense-Unicorns-Commercial
 
-# yaml-language-server: $schema=https://raw.githubusercontent.com/defenseunicorns/zarf/main/zarf.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/zarf-dev/zarf/e62a47c31c2a10854bd3f9d64f31345dffa26c68/src/pkg/schema/zarf-v1beta1-package-schema.json
+apiVersion: zarf.dev/v1beta1
 kind: ZarfPackageConfig
 metadata:
   name: reference-package
-  description: "UDS Reference Package package"
-  version: "dev"
-
-values:
-  files:
-    - values.yaml
-  schema: values.schema.json
+  description: UDS Reference Package package
+  version: dev
+attachments:
+  configuration: docs/configuration.md
+  networking: docs/networking-patterns.md
 
 components:
+- name: reference-package
+  description: Deploy Upstream Reference Package
+  selector:
+    flavor: upstream
+  import:
+    local:
+    - path: common/zarf.yaml
+  charts:
   - name: reference-package
-    required: true
-    description: "Deploy Upstream Reference Package"
-    import:
-      path: common
-    only:
-      flavor: upstream
-    charts:
-      - name: reference-package
-        valuesFiles:
-          - values/upstream-values.yaml
-    images:
-      - ghcr.io/uds-packages/reference-package/container/reference-package:v0.3.0
-
+    valuesFiles:
+    - path: values/upstream-values.yaml
+  images:
+  - name: ghcr.io/uds-packages/reference-package/container/reference-package:v0.3.0
+    source: registry
+- name: reference-package
+  description: Deploy Unicorn Reference Package
+  selector:
+    flavor: unicorn
+  import:
+    local:
+    - path: common/zarf.yaml
+  charts:
   - name: reference-package
-    required: true
-    description: "Deploy Unicorn Reference Package"
-    import:
-      path: common
-    only:
-      flavor: unicorn
-    charts:
-      - name: reference-package
-        valuesFiles:
-          - values/unicorn-values.yaml
-    images:
-      - ghcr.io/uds-packages/reference-package/container/reference-package:v0.3.0
+    valuesFiles:
+    - path: values/unicorn-values.yaml
+  images:
+  - name: ghcr.io/uds-packages/reference-package/container/reference-package:v0.3.0
+    source: registry
+values:
+  files:
+  - values.yaml
+  schema: values.schema.json
