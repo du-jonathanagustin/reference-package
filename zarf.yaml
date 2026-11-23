@@ -8,6 +8,10 @@ metadata:
   description: "UDS Reference Package package"
   version: "dev"
 
+documentation:
+  configuration: docs/configuration.md
+  networking: docs/networking-patterns.md
+
 values:
   files:
     - values.yaml
