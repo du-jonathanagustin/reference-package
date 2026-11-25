@@ -30,7 +30,7 @@ jobs:
         architecture: [amd64, arm64]
     steps:
       - name: Build, test, sign, and publish
-        uses: defenseunicorns/uds-common/.github/actions/publish@7a86081440df7e1f4df1f4a6f9286642f9fd4d10 # v1.34.0
+        uses: du-jonathanagustin/uds-common/.github/actions/publish@23592db7ab9ef0156ca5bd54c3edeec5a89083c3 # Zarf v1 workflow branch
         with:
           flavor: ${{ matrix.flavor }}
           options: --set BASE_REPO="ghcr.io/uds-packages"

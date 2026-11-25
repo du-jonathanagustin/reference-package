@@ -19,7 +19,22 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  check-flavor:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: test-flavor
+        uses: du-jonathanagustin/uds-common/.github/actions/test-flavor@23592db7ab9ef0156ca5bd54c3edeec5a89083c3 # Zarf v1 workflow branch
+        id: test-flavor
+    outputs:
+      upgrade-flavors: ${{ steps.test-flavor.outputs.upgrade-flavors }}
+
   validate:
+    needs: check-flavor
     permissions:
       contents: read
       packages: read
@@ -33,9 +48,10 @@ jobs:
     uses: defenseunicorns/uds-common/.github/workflows/callable-test.yaml@7a86081440df7e1f4df1f4a6f9286642f9fd4d10 # v1.34.0
     with:
       timeout: 30
+      udsCliVersion: "0.42.0"
       options: --set BASE_REPO="ghcr.io/uds-packages"
       runsOn: appstore-4-core-amd64
-      upgrade-flavors: upstream,unicorn
+      upgrade-flavors: ${{ needs.check-flavor.outputs.upgrade-flavors }}
       flavor: ${{ matrix.flavor }}
       type: ${{ matrix.type }}
     secrets: inherit # Inherits all secrets from the parent workflow.
