@@ -1,5 +1,8 @@
 # UDS Reference Package
 
+[![Official UDS release](https://img.shields.io/github/v/release/uds-packages/reference-package)](https://github.com/uds-packages/reference-package/releases/latest)
+[![Official UDS build](https://github.com/uds-packages/reference-package/actions/workflows/release.yaml/badge.svg?branch=main)](https://github.com/uds-packages/reference-package/actions/workflows/release.yaml?query=branch%3Amain)
+
 This repository serves as a practical, working example of a well-structured UDS Package.
 
 Inside the `.github` directory, you will find a fully runnable Go-based web application that reads and writes to a Postgres database.  This repository can be referenced alongside the [UDS Documentation](https://docs.defenseunicorns.com/), as a reference guide for building, configuring, and testing own UDS packages.
