@@ -13,35 +13,35 @@ attachments:
   networking: docs/networking-patterns.md
 
 components:
-- name: reference-package
-  description: Deploy Upstream Reference Package
-  selector:
-    flavor: upstream
-  import:
-    local:
-    - path: common/zarf.yaml
-  charts:
   - name: reference-package
-    valuesFiles:
-    - path: values/upstream-values.yaml
-  images:
-  - name: ghcr.io/uds-packages/reference-package/container/reference-package:v0.3.0
-    source: registry
-- name: reference-package
-  description: Deploy Unicorn Reference Package
-  selector:
-    flavor: unicorn
-  import:
-    local:
-    - path: common/zarf.yaml
-  charts:
+    description: Deploy Upstream Reference Package
+    selector:
+      flavor: upstream
+    import:
+      local:
+        - path: common/zarf.yaml
+    charts:
+      - name: reference-package
+        valuesFiles:
+          - path: values/upstream-values.yaml
+    images:
+      - name: ghcr.io/uds-packages/reference-package/container/reference-package:v0.3.0
+        source: registry
   - name: reference-package
-    valuesFiles:
-    - path: values/unicorn-values.yaml
-  images:
-  - name: ghcr.io/uds-packages/reference-package/container/reference-package:v0.3.0
-    source: registry
+    description: Deploy Unicorn Reference Package
+    selector:
+      flavor: unicorn
+    import:
+      local:
+        - path: common/zarf.yaml
+    charts:
+      - name: reference-package
+        valuesFiles:
+          - path: values/unicorn-values.yaml
+    images:
+      - name: ghcr.io/uds-packages/reference-package/container/reference-package:v0.3.0
+        source: registry
 values:
   files:
-  - zarf-values.yaml
+    - zarf-values.yaml
   schema: zarf-values.schema.json

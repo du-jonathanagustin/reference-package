@@ -9,19 +9,19 @@ metadata:
   description: UDS Reference Package common charts
 component:
   charts:
-  - name: uds-reference-package-config
-    local:
-      path: ../chart
-    namespace: reference-package
-    values:
-    - sourcePath: .
-      targetPath: .
-  - name: reference-package
-    oci:
-      url: oci://ghcr.io/uds-packages/reference-package/helm/reference-package
-      ref:
-        tag: 0.3.0
-    namespace: reference-package
-    values:
-    - sourcePath: .
-      targetPath: .
+    - name: uds-reference-package-config
+      local:
+        path: ../chart
+      namespace: reference-package
+      values:
+        - sourcePath: .
+          targetPath: .
+    - name: reference-package
+      oci:
+        url: oci://ghcr.io/uds-packages/reference-package/helm/reference-package
+        ref:
+          tag: 0.3.0
+      namespace: reference-package
+      values:
+        - sourcePath: .
+          targetPath: .
